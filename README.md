@@ -9,5 +9,6 @@ create venv and run:
 ```sh
 pip install web3
 pip install pandas
+pip install python-dotenv
 pip freeze > requirements.txt
 ```

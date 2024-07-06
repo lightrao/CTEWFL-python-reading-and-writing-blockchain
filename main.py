@@ -6,6 +6,11 @@ from web3 import Web3
 import pandas as pd
 import json
 import time
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Contract address and ABI details
 address_contract = "0x18B2A687610328590Bc8F2e5fEdDe3b582A49cdA"
@@ -14,12 +19,12 @@ with open("abi.json", "r") as myFile:
 abi = json.loads(data)
 
 # Provider
-rpc_mainnet = "https://bsc-dataseed1.binance.org:443"
+rpc_mainnet = os.getenv('rpc_mainnet')
 w3 = Web3(Web3.HTTPProvider(rpc_mainnet))
 
 # Wallet details - mainnet
-account_address_mainnet = "0xb3E075C8e907Ec60Cb2531F9b2F8fF0aE62CAf46"
-pk_mainnet = "58075496548b3b3e0de37b21e1597df48312f537d58c930eb292d09eb3b6df44"
+account_address_mainnet = os.getenv('account_address_mainnet')
+pk_mainnet =  os.getenv('pk_mainnet')
 
 # Contract
 contract = w3.eth.contract(address=address_contract, abi=abi)
