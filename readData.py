@@ -7,7 +7,7 @@ import pandas as pd
 import json
 import time
 
-# Contract address and ABI details
+# PancakePredictionV2 Contract address and ABI details
 address_contract = "0x18B2A687610328590Bc8F2e5fEdDe3b582A49cdA"
 with open("abi.json", "r") as myFile:
     data = myFile.read()
@@ -28,7 +28,7 @@ contract = w3.eth.contract(address=address_contract, abi=abi)
 current_epoch = contract.functions.currentEpoch().call()
 
 # Initialise variables
-lookback = 3000
+lookback = 30
 starting_epoch = current_epoch - lookback
 columns = ["epoch", "start_timestamp", "lock_timestamp", "close_timestamp", "lock_price", "close_price", "total_amount",
            "bull_amount", "bear_amount", "bull_ratio", "bear_ratio", "oracle_called"]
