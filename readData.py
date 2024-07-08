@@ -34,6 +34,7 @@ columns = ["epoch", "start_timestamp", "lock_timestamp", "close_timestamp", "loc
            "bull_amount", "bear_amount", "bull_ratio", "bear_ratio", "oracle_called"]
 df = pd.DataFrame(columns=columns)
 counts = 0
+
 for e in range(0, lookback):
 
     time.sleep(1)
@@ -59,9 +60,9 @@ for e in range(0, lookback):
     oracle_called = current_rounds_list[13]
 
     # Calculate Ratio
-    total_amount_normal = round(float(Web3.fromWei(total_amount, "ether")), 5)
-    bull_amount_normal = round(float(Web3.fromWei(bull_amount, "ether")), 5)
-    bear_amount_normal = round(float(Web3.fromWei(bear_amount, "ether")), 5)
+    total_amount_normal = round(float(Web3.from_wei(total_amount, "ether")), 5)
+    bull_amount_normal = round(float(Web3.from_wei(bull_amount, "ether")), 5)
+    bear_amount_normal = round(float(Web3.from_wei(bear_amount, "ether")), 5)
 
     # Ratios
     if bull_amount_normal != 0 and bear_amount_normal != 0:
@@ -87,7 +88,8 @@ for e in range(0, lookback):
     }
 
     try:
-        df = df.append([row_dict])
-        df.to_csv("predictions.csv")
-    except:
-        print("Did not save")
+        # Use pd.concat to append new data to the DataFrame
+        df = pd.concat([df, pd.DataFrame([row_dict])], ignore_index=True)
+        df.to_csv("predictions.csv", index=False)
+    except Exception as e:
+        print(f"Did not save: {e}")
